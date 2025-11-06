@@ -1,0 +1,15 @@
+/* css/fonts.css */
+
+@font-face {
+  font-family: 'Noto Sans Brahmi';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/NotoSansBrahmi-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Sans Devanagari';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/NotoSansDevanagari-Regular.ttf') format('truetype');
+}
