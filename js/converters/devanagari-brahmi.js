@@ -1,7 +1,8 @@
-// --- 1. Conversion Logic (UPDATED with robust for...of loops) ---
+// --- 1. Conversion Logic (UPDATED with robust for...of loops AND swapped element IDs) ---
 
 function convertDevanagariToBrahmi() {
-    var inputText = document.getElementById("input-a").value;
+    // Now reads from input-b and writes to output-b
+    var inputText = document.getElementById("input-b").value; 
     var outputText = "";
     
     // Use for...of to correctly iterate over characters
@@ -84,18 +85,18 @@ function convertDevanagariToBrahmi() {
             default: outputText += "&#" + n; break;
         }
     }
-    document.getElementById("output-a").innerHTML = outputText;
+    document.getElementById("output-b").innerHTML = outputText; // Writes to output-b
 }
 
 function convertBrahmiToDevanagari() {
-    var inputText = document.getElementById("input-b").value;
+    // Now reads from input-a and writes to output-a
+    var inputText = document.getElementById("input-a").value;
     var outputText = "";
 
     // Use for...of to correctly iterate over characters (handles surrogate pairs)
     for (const char of inputText) {
         var n = char.codePointAt(0); // Get codepoint
         switch (n) {
-            // NOTE: All the "i++" are removed, as for...of handles iteration
             case 0x11001: outputText += "&#x902"; break;
             case 0x11005: outputText += "&#x00905"; break;
             case 0x11006: outputText += "&#x906"; break;
@@ -172,33 +173,35 @@ function convertBrahmiToDevanagari() {
             default: outputText += "&#" + n; break;
         }
     }
-    document.getElementById("output-b").innerHTML = outputText;
+    document.getElementById("output-a").innerHTML = outputText; // Writes to output-a
 };
 
 
-// --- 2. Configuration Object (No changes here, but included for completeness) ---
+// --- 2. Configuration Object (Swapped boxA and boxB definitions) ---
 
 const converterConfig = {
     mainTitle: "Transliteration",
     subTitle: "Devanagari ↔ Brahmi",
     
+    // Box A is now Brahmi to Devanagari
     boxA: {
-        title: "Devanagari to Brahmi || देवनागरी to 𑀤𑁂i𑀯𑀦𑀸𑀕𑀭𑀻",
-        inputPlaceholder: "Text in Devanagari script",
-        fontClass: "font-devanagari",
-        buttonText: "Convert",
-        outputLabel: "Result in Brahmi:",
-        outputFontClass: "font-brahmi text-4xl text-orange-900",
-        convertFunction: convertDevanagariToBrahmi 
-    },
-    
-    boxB: {
-        title: "Brahmi to Devanagari || 𑀤𑁂𑀯𑀦𑀸𑀕𑀭𑀻 to देवनागरी",
+        title: "Brahmi to Devanagari || 𑀩𑁆𑀭𑀸𑀳𑁆𑀫𑀻 to देवनागरी",
         inputPlaceholder: "Text in Brahmi script",
         fontClass: "font-brahmi",
         buttonText: "Convert",
         outputLabel: "Result in Devanagari:",
         outputFontClass: "font-devanagari text-3xl text-indigo-900",
-        convertFunction: convertBrahmiToDevanagari 
+        convertFunction: convertBrahmiToDevanagari // Uses the function that reads from input-a
+    },
+    
+    // Box B is now Devanagari to Brahmi
+    boxB: {
+        title: "Devanagari to Brahmi || देवनागरी to 𑀩𑁆𑀭𑀸𑀳𑁆𑀫𑀻",
+        inputPlaceholder: "Text in Devanagari script",
+        fontClass: "font-devanagari",
+        buttonText: "Convert",
+        outputLabel: "Result in Brahmi:",
+        outputFontClass: "font-brahmi text-4xl text-orange-900",
+        convertFunction: convertDevanagariToBrahmi // Uses the function that reads from input-b
     }
 };
